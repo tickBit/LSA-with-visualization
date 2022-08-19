@@ -37,7 +37,9 @@ A = vectorizer.fit_transform(document).toarray()
 svd = TruncatedSVD(n_components=4, n_iter=7, random_state=42)
 matrix = svd.fit(A)
 
-topic_results = TruncatedSVD.transform(matrix, A)
+topic_results = vectorizer.transform(document)
+topic_results = svd.transform(topic_results)
+
 tarr = topic_results.argmax(axis=1)
 
 # Print the topics
