@@ -39,7 +39,6 @@ matrix = svd.fit(A)
 
 topic_results = vectorizer.transform(document)
 topic_results = svd.transform(topic_results)
-
 tarr = topic_results.argmax(axis=1)
 
 # Print the topics
