@@ -46,7 +46,7 @@ topic_results = vectorizer.transform(document)
 topic_results = svd.transform(topic_results)
 tarr = topic_results.argmax(axis=1)
 
-# Get the topics...
+# Get the topics..
 topics_in_order = []
 used_topic = []
 for topic in tarr:
