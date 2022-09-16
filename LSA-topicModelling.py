@@ -1,3 +1,7 @@
+"""
+I'm still quite new to Python, so I'm sure there are better ways to do this.
+"""
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from matplotlib import pyplot as plt
@@ -5,6 +9,7 @@ import numpy as np
 import spacy
 import requests
 
+# can be changes to "en_core_web_sm", if needed
 nlp = spacy.load("en_core_web_lg")
 
 # SPARQL query to get the abstract of Isaac Newton from DBPedia
@@ -41,17 +46,29 @@ topic_results = vectorizer.transform(document)
 topic_results = svd.transform(topic_results)
 tarr = topic_results.argmax(axis=1)
 
-# Print the topics
-printed_topic = []
+# Get the topics...
+topics_in_order = []
+used_topic = []
 for topic in tarr:
-    if topic not in printed_topic:
-        print('---\n'+f'TOPIC #{topic+1}')
-        printed_topic.append(topic)
+    if topic not in used_topic:
+        used_topic.append(topic)
         indexArr = np.where(tarr == topic)
         indexArr = indexArr[0]
         
         for i in indexArr:
-            print(document[i])
+            topics_in_order.append((document[i], topic))
+
+# sort topic
+topics_in_order.sort(key=lambda x: x[1])
+
+# print the topics..
+topic_printed = -1
+for i in topics_in_order[1:]:
+    if i[1] > topic_printed:
+        print(f"--- TOPIC {i[1]+1}---")
+        topic_printed = i[1]
+    print(i[0])
+
 
 # Top 4 words for each topic
 plt.subplots(figsize=(7,4))
