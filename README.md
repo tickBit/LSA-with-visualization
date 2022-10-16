@@ -1,6 +1,6 @@
 # LSA-with-visualization
 
-My first attempt to do topic modelling with LSA method. I hope I got it right..
+My first attempt to do topic modeling with LSA method. I hope I got it right..
 
 The program plots the following visualization:
 
